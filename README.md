@@ -1,6 +1,6 @@
 # ruby-app
 
-# Install
+## Install
 ### Ruby
 [RubyInsaller](https://rubyinstaller.org/downloads/)<br>
 Ruby + Devkit 3.2.2-1(x64)
@@ -39,6 +39,34 @@ ERROR:  Error installing rails:
 ```
 rails -v
 Rails 7.1.3
+```
+
+## プロジェクト作成
+
+オプションでデータベースを指定
+```
+rails new myapp --database=postgresql
+```
+
+データベースの設定
+```config/database.yml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+
+development:
+  <<: *default
+  database: myapp_development
+  username: myuser
+  password: mypassword
+  host: localhost
+```
+
+データベースの作成
+```
+cd mkapp
+bundle install
+rails db:create
 ```
 
 
