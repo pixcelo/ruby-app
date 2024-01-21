@@ -69,6 +69,15 @@ bundle install
 rails db:create
 ```
 
+## bundle installが失敗する場合
+1. [mingw-w64-x86_64-libyaml-0.2.5-2-any.pkg.tar.zst](https://packages.msys2.org/package/mingw-w64-x86_64-libyaml)をインストール
+2. [zstd](https://github.com/facebook/zstd/releases)をインストールして解凍後、tarコマンドで解凍
+3. 解凍したファイルを以下に配置後、再度`bundle install`
+```
+Ruby32-x64\include\ruby-3.2.0\yaml.h
+Ruby32-x64\lib\libyaml.a
+Ruby32-x64\lib\libyaml.dll.a
+```
 
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
