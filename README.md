@@ -48,8 +48,9 @@ Rails 7.1.3
 rails new myapp --database=postgresql
 ```
 
-データベースの設定
-```config/database.yml
+データベースの設定<br>
+`config/database.yml`
+```
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -87,7 +88,7 @@ Ruby32-x64\lib\libyaml.dll.a
 
 ## ルーティング
 `config\routes.rb`に記述
-```
+```rb
 Rails.application.routes.draw do
   get "/articles", to: "articles#index"
 end
@@ -95,7 +96,7 @@ end
 GET /articlesリクエストをArticlesControllerのindexアクションに対応付け
 
 初期表示画面を設定したい場合は、以下のようにルーティングする
-```
+```rb
 Rails.application.routes.draw do
   root "articles#index"
 
@@ -142,6 +143,33 @@ rails console
 irb> article = Article.new(title: "Hello Rails", body: "I am on Rails!")
 article.save
 ```
+
+## データベースのデータを取り出す
+`app/controllers/articles_controller.rb`<br>
+コントローラ内のインスタンス変数（@で始まる変数）は、ビューから参照可
+```rb
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+end
+```
+
+`app/views/articles/index.html.erb`
+```html
+<h1>Articles</h1>
+
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+      <%= article.title %>
+    </li>
+  <% end %>
+</ul>
+```
+- `<% %>`はRubyコードをインラインで書くためのタグ（画面に非表示）
+- `<%= %>`は値を返す（画面に表示）
+
 
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
