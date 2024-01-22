@@ -69,6 +69,12 @@ bundle install
 rails db:create
 ```
 
+## サーバー起動
+`rails s`でもOK
+```
+rails server
+```
+
 ## bundle installが失敗する場合
 1. [mingw-w64-x86_64-libyaml-0.2.5-2-any.pkg.tar.zst](https://packages.msys2.org/package/mingw-w64-x86_64-libyaml)をインストール
 2. [zstd](https://github.com/facebook/zstd/releases)をインストールして解凍後、tarコマンドで解凍
@@ -79,5 +85,21 @@ Ruby32-x64\lib\libyaml.a
 Ruby32-x64\lib\libyaml.dll.a
 ```
 
+## ルーティング
+`config\routes.rb`に記述
+```
+Rails.application.routes.draw do
+  get "/articles", to: "articles#index"
+end
+```
+GET /articlesリクエストをArticlesControllerのindexアクションに対応付け
+
+コントローラー作成
+```
+cd bin
+rails generate controller Articles index --skip-routes
+```
+
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
+- [Railsガイド](https://railsguides.jp/)
