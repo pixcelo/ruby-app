@@ -134,6 +134,15 @@ rails db:migrate
 ```
 id,title,body,created_at,update_atカラムを持つarticlesテーブルが作成された
 
+## モデル ⇔　データベースのやりとり
+`article.save`まで行うとデータベースにレコードが追加された<br>
+consoleに入力補完が出てきてとても便利
+```
+rails console
+irb> article = Article.new(title: "Hello Rails", body: "I am on Rails!")
+article.save
+```
+
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
 - [Railsガイド](https://railsguides.jp/)
