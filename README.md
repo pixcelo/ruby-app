@@ -170,6 +170,32 @@ end
 - `<% %>`はRubyコードをインラインで書くためのタグ（画面に非表示）
 - `<%= %>`は値を返す（画面に表示）
 
+## CRUD
+データを1件表示<br>
+ルーティングに追加　`get "/articles/:id", to: "articles#show"`
+```rb
+Rails.application.routes.draw do
+  root "articles#index"
+  
+  get "/articles", to: "articles#index"
+  get "/articles/:id", to: "articles#show"
+end
+```
+
+コントローラー側で`params[:id]`で取得
+```rb
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+　# idのデータを表示
+  def show
+    @article = Article.find(params[:id])
+  end
+end
+```
+
 
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
