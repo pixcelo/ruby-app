@@ -105,7 +105,6 @@ end
 
 ## コントローラー作成
 ```
-cd bin
 rails generate controller Articles index --skip-routes
 ```
 
@@ -119,7 +118,21 @@ rails generate controller Articles index show new create update delete
 rails destroy controller Articles
 ```
 
+## モデル作成
+モデル名は常に英語の「単数形」で表記
+ ```
+ rails generate model Article title:string body:text
+ ```
 
+## データベースマイグレーション
+コードファーストで記述<br>
+`db/migrate/`に作成される
+
+マイグレーション実行
+```
+rails db:migrate
+```
+id,title,body,created_at,update_atカラムを持つarticlesテーブルが作成された
 
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
