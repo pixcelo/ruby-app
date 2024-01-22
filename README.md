@@ -94,11 +94,32 @@ end
 ```
 GET /articlesリクエストをArticlesControllerのindexアクションに対応付け
 
-コントローラー作成
+初期表示画面を設定したい場合は、以下のようにルーティングする
+```
+Rails.application.routes.draw do
+  root "articles#index"
+
+  get "/articles", to: "articles#index"
+end
+```
+
+## コントローラー作成
 ```
 cd bin
 rails generate controller Articles index --skip-routes
 ```
+
+複数のアクションを一度に作成する場合
+```
+rails generate controller Articles index show new create update delete
+```
+
+不要なコントローラーを消したい場合
+```
+rails destroy controller Articles
+```
+
+
 
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
