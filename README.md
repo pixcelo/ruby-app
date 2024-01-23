@@ -232,6 +232,65 @@ end
 </ul>
 ```
 
+### CREATE
+作成
+
+コントローラー側
+```rb
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  def new
+    @article = Article.new
+  end
+
+  def create
+    # Strong Parametersによる型付け
+    @article = Article.new(article_params)
+
+    if @article.save
+      redirect_to @article
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  # Strong Parameters
+  private
+    def article_params
+      params.require(:article).permit(:title, :body)
+    end
+end
+```
+
+フォームビルダー<br>
+ビューを作成 `app/views/articles/new.html.erb`
+```html
+<h1>New Article</h1>
+
+<%= form_with model: @article do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+```
+
 
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
