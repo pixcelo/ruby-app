@@ -171,6 +171,7 @@ end
 - `<%= %>`は値を返す（画面に表示）
 
 ## CRUD
+### READ
 データを1件表示<br>
 ルーティングに追加　`get "/articles/:id", to: "articles#show"`
 ```rb
@@ -194,6 +195,41 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 end
+```
+
+ビューを追加　`app/views/articles/show.html.erb`
+```html
+<h1><%= @article.title %></h1>
+
+<p><%= @article.body %></p>
+```
+
+## リソースフルルーティング
+以下のように書き換えが可能
+```rb
+Rails.application.routes.draw do
+  root "articles#index"
+  
+  # get "/articles", to: "articles#index"
+  # get "/articles/:id", to: "articles#show"
+  resources :articles
+end
+```
+`rails s`で同じページにアクセスできることを確認
+
+
+画面遷移を`link_to`ヘルパーで簡易に書ける
+```html
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+       <!-- <a href="/articles/<%= article.id %>">
+        <%= article.title %>
+       </a> -->
+      <%= link_to article.title, article %>
+    </li>
+  <% end %>
+</ul>
 ```
 
 
