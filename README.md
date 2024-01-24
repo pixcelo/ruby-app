@@ -291,6 +291,35 @@ end
 <% end %>
 ```
 
+### UPDATE
+共有ビュー（newとeditで共通化する）
+```html
+<%= form_with model: article do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+    <% article.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %><br>
+    <% article.errors.full_messages_for(:body).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+```
+注意点「上記のコードは`app/views/articles/new.html.erb`のフォームと同じですが、すべての@articleをarticleに置き換えてある点にご注目ください。パーシャルのコードは共有されるので、特定のインスタンス変数に依存しないようにするのがベストプラクティスです（コントローラのアクションで設定されるインスタンス変数に依存すると、他で使い回すときに不都合が生じます）。代わりに、記事をローカル変数としてパーシャルに渡します。」
+
+
+
 
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
