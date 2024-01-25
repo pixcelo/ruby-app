@@ -427,3 +427,4 @@ end
 - [Ruby on Rails](https://rubyonrails.org/)
 - [Railsガイド](https://railsguides.jp/)
 - [Ruby on Rails forum](https://discuss.rubyonrails.org/)
+- [Ruby on Railsチュートリアル](https://railstutorial.jp/)

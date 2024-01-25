@@ -1,7 +1,11 @@
 class Article < ApplicationRecord
     include Visible
 
-    has_many :comments # 記事とコメントは 1:N
+    # 記事とコメントは 1:N
+    #has_many :comments
+
+    # 記事を削除した場合に、関連付けられたコメントも削除する
+    has_many :comments, dependent: :destroy
 
     # 必須項目
     validates :title, presence: true
