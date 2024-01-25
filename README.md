@@ -387,6 +387,8 @@ rails db:migrate
 == 20240124222147 CreateComments: migrated (0.0926s) ==========================
 ```
 
+## コントローラの追加
+
 
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
