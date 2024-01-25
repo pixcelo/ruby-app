@@ -318,9 +318,77 @@ end
 ```
 注意点「上記のコードは`app/views/articles/new.html.erb`のフォームと同じですが、すべての@articleをarticleに置き換えてある点にご注目ください。パーシャルのコードは共有されるので、特定のインスタンス変数に依存しないようにするのがベストプラクティスです（コントローラのアクションで設定されるインスタンス変数に依存すると、他で使い回すときに不都合が生じます）。代わりに、記事をローカル変数としてパーシャルに渡します。」
 
+### DELETE
+コントローラーに追加
+```rb
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
 
+    redirect_to root_path, status: :see_other
+  end
+```
+
+ビューに追加 `<%= javascript_include_tag "turbo", type: "module" %>`を追加しないとデリートをリクエストしても`show`がGETで呼ばれるだけだった[(参考)](https://discuss.rubyonrails.org/t/guide-v7-0-3-1-link-to-destroy-turbo-method-delete-doesnt-works-ubuntu-22-04/81326)
+```html
+<%= javascript_include_tag "turbo", type: "module" %>
+
+<h1><%= @article.title %></h1>
+
+<p><%= @article.body %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_article_path(@article) %></li>
+  <li><%= link_to "Destroy", article_path(@article), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
+</ul>
+
+```
+
+## モデルの追加
+アプリのrootにてコマンドで追加(関連付け（アソシエーション: association）を設定)
+```
+rails generate model Comment commenter:string body:text article:references
+```
+
+```
+invoke  active_record
+create    db/migrate/20240124222147_create_comments.rb
+create    app/models/comment.rb
+invoke    test_unit
+create      test/models/comment_test.rb
+create      test/fixtures/comments.yml
+```
+作成されたマイグレーションファイルで、テーブル作成の定義が確認できる<br>
+
+```rb
+class CreateComments < ActiveRecord::Migration[7.1]
+  def change
+    create_table :comments do |t|
+      t.string :commenter
+      t.text :body
+      t.references :article, null: false, foreign_key: true # 外部キー制約
+
+      t.timestamps
+    end
+  end
+end
+```
+
+これまで実行されていないマイグレーションだけ実行される
+```
+rails db:migrate
+
+== 20240124222147 CreateComments: migrating ===================================
+-- create_table(:comments)
+   -> 0.0917s
+== 20240124222147 CreateComments: migrated (0.0926s) ==========================
+```
 
 
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
 - [Railsガイド](https://railsguides.jp/)
+- [Ruby on Rails forum](https://discuss.rubyonrails.org/)
