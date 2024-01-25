@@ -422,6 +422,22 @@ module Visible
 end
 ```
 
+## セキュリティ
+### BASIC認証
+`http_basic_authenticate_with`メソッド
+
+`app/controllers/articles_controller.rb`
+```rb
+class ArticlesController < ApplicationController
+  http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
+
+  def index
+    @articles = Article.all
+  end
+
+  #（以下省略）
+end
+```
 
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
