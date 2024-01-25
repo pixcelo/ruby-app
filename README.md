@@ -50,7 +50,7 @@ rails new myapp --database=postgresql
 
 データベースの設定<br>
 `config/database.yml`
-```
+```yml
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -121,9 +121,9 @@ rails destroy controller Articles
 
 ## モデル作成
 モデル名は常に英語の「単数形」で表記
- ```
- rails generate model Article title:string body:text
- ```
+```
+rails generate model Article title:string body:text
+```
 
 ## データベースマイグレーション
 コードファーストで記述<br>
@@ -219,7 +219,7 @@ end
 
 
 画面遷移を`link_to`ヘルパーで簡易に書ける
-```html
+```erb
 <ul>
   <% @articles.each do |article| %>
     <li>
@@ -271,7 +271,7 @@ end
 
 フォームビルダー<br>
 ビューを作成 `app/views/articles/new.html.erb`
-```html
+```erb
 <h1>New Article</h1>
 
 <%= form_with model: @article do |form| %>
@@ -293,7 +293,7 @@ end
 
 ### UPDATE
 共有ビュー（newとeditで共通化する）
-```html
+```erb
 <%= form_with model: article do |form| %>
   <div>
     <%= form.label :title %><br>
@@ -330,7 +330,7 @@ end
 ```
 
 ビューに追加 `<%= javascript_include_tag "turbo", type: "module" %>`を追加しないとデリートをリクエストしても`show`がGETで呼ばれるだけだった[(参考)](https://discuss.rubyonrails.org/t/guide-v7-0-3-1-link-to-destroy-turbo-method-delete-doesnt-works-ubuntu-22-04/81326)
-```html
+```erb
 <%= javascript_include_tag "turbo", type: "module" %>
 
 <h1><%= @article.title %></h1>
@@ -344,7 +344,6 @@ end
                     turbo_confirm: "Are you sure?"
                   } %></li>
 </ul>
-
 ```
 
 ## モデルの追加
@@ -388,6 +387,10 @@ rails db:migrate
 ```
 
 ## コントローラの追加
+
+```
+rails generate controller Comments
+```
 
 
 # Reference
