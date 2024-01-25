@@ -1,4 +1,6 @@
 class Article < ApplicationRecord
+    include Visible
+
     has_many :comments # 記事とコメントは 1:N
 
     # 必須項目

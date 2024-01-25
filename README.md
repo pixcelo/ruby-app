@@ -392,6 +392,36 @@ rails db:migrate
 rails generate controller Comments
 ```
 
+## concern（関心事）
+- 大規模なコントローラやモデルの理解や管理を楽にする手法の１つ
+- 複数のモデル（またはコントローラ）が同じ関心を共有していれば、concernを介して再利用できる
+- concernはRubyの「モジュール」で実装され、モデルやコントローラが担当する機能のうち明確に定義された部分を表すメソッドをそのモジュールに含める
+
+- `app/controllers/concerns`
+- `app/models/concerns`
+
+マイグレーション生成(既存テーブルにstatusカラムを追加)
+```
+rails generate migration AddStatusToArticles status:string
+rails generate migration AddStatusToComments status:string
+```
+実行
+```
+rails db:migrate
+```
+
+- 既存の記事やコメントのステータスを一括指定するには、生成されたマイグレーションファイルにdefault: "public"オプションを追加してデフォルト値を追加し、マイグレーションを再度実行する方法がある
+- あるいは、railsコンソールで`Article.update_all(status: "public")`や`Comment.update_all(status: "public")`を呼び出すことでも可能
+
+app/models/concerns/visible.rb
+```rb
+module Visible
+  def archived?
+    status == 'archived'
+  end
+end
+```
+
 
 # Reference
 - [Ruby on Rails](https://rubyonrails.org/)
