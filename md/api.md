@@ -128,3 +128,15 @@ end
 get "weather", to: "weather#show"
 get "weather/:city", to: "weather#show"
 ```
+
+`http://127.0.0.1:3000/weather/tokyo`でアクセスすると、以下のように表示
+```
+Weather Information
+City: 東京都
+
+Temperature: 4.6°C
+
+Humidity: 39%
+
+Description: 晴天
+```
