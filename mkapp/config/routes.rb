@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   # get "/articles", to: "articles#index"
   # get "/articles/:id", to: "articles#show"
 
+  get "weather", to: "weather#show"
+  get "weather/:city", to: "weather#show"
+
   # articlesの内側にネストしたリソース（nested resouce）としてcommentsが作成される
   resources :articles do
     resources :comments

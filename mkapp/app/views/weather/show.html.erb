@@ -1,0 +1,10 @@
+<h1>Weather Information</h1>
+
+<% if @weather_data %>
+  <p>City: <%= @weather_data["name"] %></p>
+  <p>Temperature: <%= @weather_data["main"]["temp"] %>°C</p>
+  <p>Humidity: <%= @weather_data["main"]["humidity"] %>%</p>
+  <p>Description: <%= @weather_data["weather"][0]["description"] %></p>
+<% else %>
+  <p>No weather data available.</p>
+<% end %>
